@@ -1,0 +1,69 @@
+﻿<div ng-app="abbyyTaskApp" ng-controller="HomeCtrl" >
+    <table class="table">
+        <thead>
+        <tr>
+            <td>Name</td>
+            <td>Cardinality</td>
+            <td>Property</td>
+            <td></td>
+        </tr>
+        </thead>
+        <tr ng-repeat="concept in Form.Concepts">
+            <td>{{ concept.Name }}</td>
+            <td>{{ concept.Cardinality }}</td>
+            <td>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Name</td>
+                            <td>Cardinality</td>
+                            <td>Type</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tr ng-repeat="property in concept.Properties">
+                        <td>{{ property.Name }}</td>
+                        <td>{{ property.Cardinality }}</td>
+                        <td>{{ property.Type }}</td>
+                        <td>
+                            <button type="button" id="RemoveProperty" class="btn btn-lg" ng-click="removeProperty(concept, property.Name)">Remove property</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" id="PropertyName" name="PropertyName" ng-model="concept.newProperty.Name"/></td>
+                        <td><select id="PropertyCardinality" name="PropertyCardinality" ng-model="concept.newProperty.Cardinality" ng-options="card for card in cardinalities"></select></td>
+                        <td><select id="PropertyType" name="PropertyType" ng-model="concept.newProperty.Type" ng-options="type for type in propertyTypes"></select></td>
+                        <td>
+                            <button type="button" id="addProperty" class="btn btn-lg" ng-click="addProperty(concept)">Add property</button>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <button type="button" id="RemoveConcept" class="btn btn-lg" ng-click="removeConcept(concept.Name)">Remove concept</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" id="ConceptName" name="ConceptName" ng-model="newConcept.Name"/>
+            </td>
+            <td>
+                <select id="ConceptCardinality" name="ConceptCardinality" ng-model="newConcept.Cardinality" ng-options="card for card in cardinalities"></select>
+            </td>
+            <td></td>
+            <td>
+                <button type="button" id="addConcept" class="btn btn-lg" ng-click="addConcept()">Add concept</button>
+            </td>
+        </tr>
+    </table>
+    <button type="button" id="getJson" class="btn btn-lg" ng-click="getJson()">Get Json</button>
+    <div id="msgHeader">
+        <hr>
+        <div class="inline right">
+            <input type="button" class="btn btn-lg" ng-click="clearMessages()" value="Clear results ({{messages.length}})" />
+        </div>
+    </div>
+    <div id="messages">
+        <pre ng-repeat="msg in messages">{{msg}}</pre>
+    </div>
+</div>
